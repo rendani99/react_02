@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const App = () => {
-  const btnClick = () => {
-    const [initialValue, setInitialValue] = useState(0);
-    console.log("Clicked");
-    setInitialValue(initialValue + 1);
-    console.log(initialValue);
-  };
+  const [data, setData] = useState([]);
+  const inputRef = useRef(null);
+
   return (
     <div>
-      {initialValue}
-      <button onClick={btnClick}>clickMe</button>
+      <input ref={inputRef} type="text" />
+      <button
+        onClick={() => {
+          setData([...data, inputRef.current.value]);
+        }}
+      >
+        submit
+      </button>
+      {data.map((item, index) => (
+        <h2 key={index}>{item}</h2>
+      ))}
     </div>
   );
 };
